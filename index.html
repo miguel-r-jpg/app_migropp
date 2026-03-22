@@ -216,10 +216,49 @@ const getClass=c=>({Estaciones:'cat-Estaciones',Reguladores:'cat-Reguladores',Po
 function init(){ 
     let storedData = null;
     try { const s = localStorage.getItem('migropp'); if(s) storedData = JSON.parse(s); } catch(e) { storedData = null; }
-    if(storedData && storedData.length > 0) { materials = storedData; }
-    else if (DEFAULT_DATA && DEFAULT_DATA.length > 0) { materials = DEFAULT_DATA; save(); }
-    else { materials = []; }
-    setTimeout(()=>{$('splash').classList.add('hide');$('app').classList.add('visible');renderCats();render();initZoom();}, 1500); 
+    if(storedData && storedData.length > 0) { materials = storedData; setTimeout(()=>{$('splash').classList.add('hide');$('app').classList.add('visible');renderCats();render();initZoom();}, 1500); }
+    else {
+        // Cargar CSV automáticamente
+        fetch('./MIGROPP.art.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                Papa.parse(csvText, {
+                    header: false,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        try {
+                            const rows = results.data;
+                            if (rows.length === 0) { materials = []; }
+                            else {
+                                materials = rows.map(row => {
+                                    const len = row.length;
+                                    if (len < 4) return null;
+                                    let code = String(row[1] || '').trim();
+                                    if (!/^\d+$/.test(code)) return null;
+                                    let c = String(row[0] || '').trim();
+                                    let img = String(row[len - 1] || '').trim();
+                                    let loc = String(row[len - 2] || '').trim();
+                                    let desc = "";
+                                    if (len >= 5) { desc = row.slice(2, len - 2).join(';'); }
+                                    else if (len === 4) { desc = String(row[2] || '').trim(); }
+                                    desc = desc.trim();
+                                    return { categoria: c, codigo: code, descripcion: desc, ubicacion: loc, imagen: img };
+                                }).filter(m => m !== null);
+                            }
+                            save();
+                            setTimeout(() => { $('splash').classList.add('hide'); $('app').classList.add('visible'); renderCats(); render(); initZoom(); }, 1500);
+                        } catch (err) {
+                            materials = [];
+                            setTimeout(() => { $('splash').classList.add('hide'); $('app').classList.add('visible'); renderCats(); render(); initZoom(); }, 1500);
+                        }
+                    }
+                });
+            })
+            .catch(err => {
+                materials = [];
+                setTimeout(() => { $('splash').classList.add('hide'); $('app').classList.add('visible'); renderCats(); render(); initZoom(); }, 1500);
+            });
+    }
 }
 function save(){ try { localStorage.setItem('migropp', JSON.stringify(materials)); } catch(e) { console.error("Error guardando", e); } }
 
