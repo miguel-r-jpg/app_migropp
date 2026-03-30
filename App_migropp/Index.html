@@ -286,7 +286,67 @@ const DEFAULT_PASSWORD = "migropp";
 function getPassword(){ try { return localStorage.getItem('migropp_pass') || DEFAULT_PASSWORD; } catch(e) { return DEFAULT_PASSWORD; } }
 function setPassword(p){ try { localStorage.setItem('migropp_pass', p); } catch(e) {} }
 
-const DEFAULT_DATA = [];
+const DEFAULT_DATA = [
+    // ESTACIONES
+    {codigo:"1000156",descripcion:"Válvula de compuerta 4\" ANSI 300 – Cuerpo fundido",categoria:"Estaciones",ubicacion:"EST-A-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"1000234",descripcion:"Válvula reguladora de presión modelo RB-1800 de 2\"",categoria:"Estaciones",ubicacion:"EST-A-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"1000312",descripcion:"Manómetro de presión rango 0-60 PSI dial 4\"",categoria:"Estaciones",ubicacion:"EST-A-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"1000456",descripcion:"Válvula de seguridad alivio 1\" x 3/4\" set 80 PSI",categoria:"Estaciones",ubicacion:"EST-B-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"1000578",descripcion:"Cable sensor de temperatura PT100 para transmisor",categoria:"Estaciones",ubicacion:"EST-B-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // REGULADORES
+    {codigo:"2000101",descripcion:"Regulador de presión domiciliario 1/2\" entrada - 3/4\" salida",categoria:"Reguladores",ubicacion:"REG-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"2000202",descripcion:"Regulador de presión industrial 2\" modelo 1098-EGR",categoria:"Reguladores",ubicacion:"REG-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"2000303",descripcion:"Regulador de baja presión 1\" para redes de distribución",categoria:"Reguladores",ubicacion:"REG-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"2000404",descripcion:"Regulador de presión monitoreado 3\" con válvula slam shut",categoria:"Reguladores",ubicacion:"REG-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"2000505",descripcion:"Diafragma de repuesto para regulador domiciliario 1/2\"",categoria:"Reguladores",ubicacion:"REG-04",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // POLIETILENO
+    {codigo:"3000110",descripcion:"Tubo HDPE PE100 SDR-11 de 63mm (2.5\") x 12m",categoria:"Polietileno",ubicacion:"POL-A-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000220",descripcion:"Tubo HDPE PE100 SDR-11 de 110mm (4\") x 12m",categoria:"Polietileno",ubicacion:"POL-A-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000330",descripcion:"Tubo HDPE PE100 SDR-17 de 160mm (6\") x 12m",categoria:"Polietileno",ubicacion:"POL-B-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000440",descripcion:"Accesorio Tee electrosoldable HDPE 63mm x 63mm x 63mm",categoria:"Polietileno",ubicacion:"POL-C-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000550",descripcion:"Accesorio Codo 90° electrosoldable HDPE 110mm",categoria:"Polietileno",ubicacion:"POL-C-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000660",descripcion:"Accesorio Reducción electrosoldable HDPE 110mm a 63mm",categoria:"Polietileno",ubicacion:"POL-C-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"3000770",descripcion:"Cinta de respaldo para uniones mecánicas en HDPE",categoria:"Polietileno",ubicacion:"POL-D-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // ACERO
+    {codigo:"4000105",descripcion:"Tubo de acero al carbono SCH-40 de 4\" x 6m ASTM A53 Gr.B",categoria:"Acero",ubicacion:"ACE-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"4000210",descripcion:"Tubo de acero al carbono SCH-40 de 6\" x 6m ASTM A53 Gr.B",categoria:"Acero",ubicacion:"ACE-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"4000315",descripcion:"Codo de acero 90° SCH-40 de 4\" soldable",categoria:"Acero",ubicacion:"ACE-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"4000420",descripcion:"Tee de acero SCH-40 4\" x 4\" x 4\" soldable",categoria:"Acero",ubicacion:"ACE-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"4000525",descripcion:"Flange de acero classe 150 de 4\" ANSI B16.5",categoria:"Acero",ubicacion:"ACE-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"4000630",descripcion:"Válvula de compuerta en acero 4\" clase 150 rosca BSP",categoria:"Acero",ubicacion:"ACE-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // GALVANIZADOS
+    {codigo:"5000108",descripcion:"Tubo galvanizado SCH-40 de 2\" x 6m cople roscado",categoria:"Galvanizados",ubicacion:"GAL-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"5000216",descripcion:"Tubo galvanizado SCH-40 de 3\" x 6m cople roscado",categoria:"Galvanizados",ubicacion:"GAL-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"5000324",descripcion:"Cople galvanizado de 2\" roscado NPT",categoria:"Galvanizados",ubicacion:"GAL-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"5000432",descripcion:"Codo galvanizado 90° de 2\" roscado NPT",categoria:"Galvanizados",ubicacion:"GAL-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"5000540",descripcion:"Reducción galvanizada bushing 2\" x 1.5\" roscada",categoria:"Galvanizados",ubicacion:"GAL-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // MEDIDORES
+    {codigo:"6000120",descripcion:"Medidor de gas tipo G4 rango 0.04-6 m³/h Brida 1.5\"",categoria:"Medidores",ubicacion:"MED-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"6000240",descripcion:"Medidor de gas tipo G6 rango 0.06-10 m³/h con puente",categoria:"Medidores",ubicacion:"MED-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"6000360",descripcion:"Medidor de gas tipo G10 rango 0.16-16 m³/h residencial",categoria:"Medidores",ubicacion:"MED-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"6000480",descripcion:"Medidor de gas tipo G25 rango 0.4-40 m³/h comercial",categoria:"Medidores",ubicacion:"MED-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"6000600",descripcion:"Medidor de gas tipo G40 rango 1-65 m³/h industrial",categoria:"Medidores",ubicacion:"MED-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // INTERNAS
+    {codigo:"7000105",descripcion:"Tubo multicapa PEX-AL-PEX de 20mm x 100m rollo",categoria:"Internas",ubicacion:"INT-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"7000210",descripcion:"Tubo multicapa PEX-AL-PEX de 25mm x 100m rollo",categoria:"Internas",ubicacion:"INT-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"7000315",descripcion:"Llave de paso bola de 1/2\" para gas interno",categoria:"Internas",ubicacion:"INT-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"7000420",descripcion:"Regulador domiciliario para gas natural 1/2\" x 3/4\"",categoria:"Internas",ubicacion:"INT-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"7000525",descripcion:"Conector flexible corrugado acero inox. 500mm 1/2\"",categoria:"Internas",ubicacion:"INT-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"7000630",descripcion:"Cinta teflón para sellado roscas gas 12m x 12mm",categoria:"Internas",ubicacion:"INT-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // ACOMETIDAS
+    {codigo:"8000115",descripcion:"Tubo HDPE PE100 SDR-11 de 32mm (1.25\") x 100m",categoria:"Acometidas",ubicacion:"ACO-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"8000230",descripcion:"Tubo HDPE PE100 SDR-11 de 40mm (1.5\") x 100m",categoria:"Acometidas",ubicacion:"ACO-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"8000345",descripcion:"Llave de acometida integrada 1.25\" cuerpo HDPE",categoria:"Acometidas",ubicacion:"ACO-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"8000460",descripcion:"Caja de válvula de acometida tipo A reforzada",categoria:"Acometidas",ubicacion:"ACO-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"8000575",descripcion:"Accesorio transición HDPE-ACERO 32mm x 1\" roscado",categoria:"Acometidas",ubicacion:"ACO-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    // REP.HERRA.VARIOS
+    {codigo:"9000100",descripcion:"Detector de fugas de gas portátil modelo GDT-2000",categoria:"Rep.Herra.Varios",ubicacion:"REP-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"9000200",descripcion:"Soldadora por electrofusión para HDPE 32-160mm",categoria:"Rep.Herra.Varios",ubicacion:"REP-01",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"9000300",descripcion:"Raspador manual para tubería HDPE 63-160mm",categoria:"Rep.Herra.Varios",ubicacion:"REP-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"9000400",descripcion:"Cortador de tubo HDPE de 63-160mm con cuchillas",categoria:"Rep.Herra.Varios",ubicacion:"REP-02",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"9000500",descripcion:"Maletín de herramientas para instalación de medidores",categoria:"Rep.Herra.Varios",ubicacion:"REP-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"},
+    {codigo:"9000600",descripcion:"Compresor de aire portátil 8 bar 50L gasolina",categoria:"Rep.Herra.Varios",ubicacion:"REP-03",imagen:"https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg"}
+];
 
 const getClass=c=>({Estaciones:'cat-Estaciones',Reguladores:'cat-Reguladores',Polietileno:'cat-Polietileno',Acero:'cat-Acero',Galvanizados:'cat-Galvanizados',Medidores:'cat-Medidores',Internas:'cat-Internas',Acometidas:'cat-Acometidas'})[c]||'cat-repherra';
 
