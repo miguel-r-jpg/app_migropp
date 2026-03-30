@@ -1,0 +1,17 @@
+{
+  "name": "MIGROPP Gestion de Almacen",
+  "short_name": "MIGROPP",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0D1929",
+  "theme_color": "#0D1929",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/Fk3ZvkGX/migroop-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
